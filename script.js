@@ -232,7 +232,7 @@ pasteBtn.addEventListener('click', async () => {
     }
     textInput.value += clipboardText;
     countAll();
-    showToast('クリップボードの内容を追加しました');
+    showToast('クリップボードから貼り付けました');
   } catch (e) {
     showToast('貼り付けに失敗しました');
   }
