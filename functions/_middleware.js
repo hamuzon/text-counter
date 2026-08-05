@@ -6,5 +6,32 @@ export async function onRequest(context) {
     return Response.redirect(url.toString(), 301);
   }
 
-  return context.next();
+  const response = await context.next();
+
+  const contentType = response.headers.get("content-type") || "";
+  if (contentType.includes("text/html")) {
+    let canonicalHost = "";
+
+    if (url.hostname.endsWith(".hamuzon-jp.f5.si")) {
+      canonicalHost = url.hostname;
+    } else if (url.hostname.endsWith(".hamusata.f5.si")) {
+      canonicalHost = url.hostname;
+    }
+
+    if (canonicalHost) {
+      const canonicalUrl = `https://${canonicalHost}${url.pathname}`;
+      return new HTMLRewriter()
+        .on("head", {
+          element(element) {
+            element.append(
+              `<link rel="canonical" href="${canonicalUrl}" />`,
+              { html: true }
+            );
+          },
+        })
+        .transform(response);
+    }
+  }
+
+  return response;
 }
