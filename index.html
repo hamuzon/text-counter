@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>文字数カウンター - 文字数計測ツール / Text Count Tool</title>
+  <meta name="description" lang="ja" content="文字数カウンター - 文字数計測ツール / Text Count Tool">
+  <meta name="description" lang="en" content="Character Counter - Text Count Tool / Text Count Tool">
+  <meta name="keywords" content="文字数カウント,文字数カウンター,テキストカウント,文字数計算,半角全角,行数,段落数,文字数,もじすう,moji,moji-counter,moji counter,moji count,mojisu,text-counter,character count,text counter,word count,character counter,full-width,half-width,line count,paragraph count">
+  <meta name="author" content="文字数カウンター">
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="文字数カウンター - 文字数計測ツール / Text Count Tool">
+  <meta property="og:description" content="文字数カウンター - 文字数計測ツール / Text Count Tool">
+  <meta property="og:site_name" content="文字数カウンター">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="文字数カウンター - 文字数計測ツール / Text Count Tool">
+  <meta name="twitter:description" content="文字数カウンター - 文字数計測ツール / Text Count Tool">
+
+  <meta name="application-name" content="文字数カウンター">
+
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3E📝%3C/text%3E%3C/svg%3E"
+    type="image/svg+xml">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header id="appTitle">
+    <span class="header-icon">📝</span>
+    文字数カウンター<span class="label-en header-label-en">Character Counter</span>
+  </header>
+
+  <main>
+    <!-- 入力エリア -->
+    <section aria-label="テキスト入力">
+      <div class="section-label">テキストを入力<span class="label-en">Enter Text</span></div>
+      <div class="textarea-wrapper">
+        <textarea id="textInput" placeholder="ここにカウントしたいテキストを入力してください… / Enter text to count…" spellcheck="false"></textarea>
+        <div class="textarea-actions">
+          <button class="btn btn-clear" id="clearBtn" type="button" title="テキストをクリア / Clear text">
+            <span>✕ クリア / Clear</span>
+          </button>
+          <button class="btn btn-paste" id="pasteBtn" type="button" title="クリップボードから貼り付け / Paste from clipboard">
+            <span>📋 貼り付け / Paste</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- カウント結果 -->
+    <section aria-label="文字数カウント結果">
+      <div class="section-label">カウント結果<span class="label-en">Count Results</span> <span class="hint">（数字をクリックでコピー / Click to copy）</span></div>
+      <div class="stats-grid">
+        <div class="stat-card" data-stat="withSpace" title="クリックでコピー">
+          <div class="stat-label">文字数（空白込み）<span class="label-en">Chars (incl. spaces)</span></div>
+          <div class="stat-value" id="statWithSpace">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card" data-stat="noSpace" title="クリックでコピー">
+          <div class="stat-label">文字数（空白抜き）<span class="label-en">Chars (excl. spaces)</span></div>
+          <div class="stat-value" id="statNoSpace">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card" data-stat="noSpaceNewline" title="クリックでコピー">
+          <div class="stat-label">文字数（改行・空白抜き）<span class="label-en">Chars (no spaces/newlines)</span></div>
+          <div class="stat-value" id="statNoSpaceNewline">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card" data-stat="halfWidthCalc" title="クリックでコピー">
+          <div class="stat-label">文字数（半角0.5文字換算）<span class="label-en">Chars (half-width = 0.5)</span></div>
+          <div class="stat-value" id="statHalfWidthCalc">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card" data-stat="spaceCount" title="クリックでコピー">
+          <div class="stat-label">空白の数<span class="label-en">Space Count</span></div>
+          <div class="stat-value" id="statSpaceCount">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card" data-stat="lineCount" title="クリックでコピー">
+          <div class="stat-label">行数<span class="label-en">Line Count</span></div>
+          <div class="stat-value" id="statLineCount">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card" data-stat="paragraphCount" title="クリックでコピー">
+          <div class="stat-label">段落数<span class="label-en">Paragraph Count</span></div>
+          <div class="stat-value" id="statParagraphCount">0</div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+        <div class="stat-card stat-card-wide" data-stat="breakdown" title="クリックでコピー">
+          <div class="stat-label">文字数内訳<span class="label-en">Character Breakdown</span></div>
+          <div class="stat-breakdown">
+            全角 (Full-width) <span class="stat-value-inline" id="statFullWidth">0</span>
+            半角 (Half-width) <span class="stat-value-inline" id="statHalfWidth">0</span>
+          </div>
+          <div class="copy-badge">コピー / Copy</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- カスタマイズ -->
+    <section aria-label="カウント条件カスタマイズ">
+      <div class="section-label collapsible" id="customizeToggle" role="button" tabindex="0" aria-expanded="false">
+        <span class="collapse-icon" id="collapseIcon">▶</span> カウント条件カスタマイズ<span class="label-en">Customize Count Options</span>
+      </div>
+      <div class="customize-panel" id="customizePanel" hidden>
+        <div class="customize-grid">
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreHalfSpace"> 半角スペースを除外<span class="label-en">Exclude half-width spaces</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreFullSpace"> 全角スペースを除外<span class="label-en">Exclude full-width spaces</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreNewline"> 改行を除外<span class="label-en">Exclude newlines</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreTab"> タブを除外<span class="label-en">Exclude tabs</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnorePunctuation"> 句読点を除外（。、）<span class="label-en">Exclude punctuation</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreSymbol"> 記号を除外（！？…等）<span class="label-en">Exclude symbols</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreNumber"> 数字を除外<span class="label-en">Exclude numbers</span>
+          </label>
+          <label class="custom-option">
+            <input type="checkbox" id="optIgnoreAlpha"> 英字を除外<span class="label-en">Exclude letters</span>
+          </label>
+        </div>
+        <div class="custom-extra">
+          <label class="custom-label" for="optIgnoreCustom">追加で除外する文字 / Additional chars to exclude：</label>
+          <input type="text" id="optIgnoreCustom" class="custom-text-input" placeholder="例: 、。「」">
+        </div>
+        <div class="custom-note">※ カスタマイズは「文字数（空白込み）」に反映されます / Applied to "Chars (incl. spaces)"</div>
+      </div>
+    </section>
+
+    <!-- コピー通知 -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <footer id="footer">
+    <div id="footer-author">&copy;2026 文字数カウンター / Character Counter</div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>
