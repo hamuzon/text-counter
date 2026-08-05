@@ -2,6 +2,8 @@
 
 /* ===== DOM References ===== */
 const textInput        = document.getElementById('textInput');
+const clearBtn         = document.getElementById('clearBtn');
+const pasteBtn         = document.getElementById('pasteBtn');
 const statWithSpace    = document.getElementById('statWithSpace');
 const statNoSpace      = document.getElementById('statNoSpace');
 const statNoSpaceNL    = document.getElementById('statNoSpaceNewline');
@@ -213,6 +215,28 @@ document.querySelectorAll('.stat-card').forEach(card => {
 
 /* ===== Textarea Events ===== */
 textInput.addEventListener('input', countAll);
+
+/* ===== Button Actions ===== */
+clearBtn.addEventListener('click', () => {
+  textInput.value = '';
+  countAll();
+  showToast('テキストをクリアしました');
+});
+
+pasteBtn.addEventListener('click', async () => {
+  try {
+    const clipboardText = await navigator.clipboard.readText();
+    if (!clipboardText) {
+      showToast('クリップボードにテキストがありません');
+      return;
+    }
+    textInput.value = clipboardText;
+    countAll();
+    showToast('クリップボードから貼り付けました');
+  } catch (e) {
+    showToast('貼り付けに失敗しました');
+  }
+});
 
 /* ===== Customize Toggle ===== */
 customizeToggle.addEventListener('click', toggleCustomize);
