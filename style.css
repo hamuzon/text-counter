@@ -110,6 +110,18 @@ main {
   line-height: 1.2;
 }
 
+/* Header-specific English sub-label (improve contrast on header) */
+.label-en.header-label-en {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 0.45rem;
+  opacity: 0.98;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.12);
+}
+
 /* ===== Textarea ===== */
 .textarea-wrapper {
   display: flex;
