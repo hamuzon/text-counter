@@ -43,25 +43,3 @@ A simple yet powerful real-time character counter tool. Just type or paste your 
 4. Open "Customize Count Options" to fine-tune what characters to exclude.
 
 ---
-
-## 📁 ファイル構成 / File Structure
-
-```text
-/
-├── index.html   # メインHTML / Main HTML
-├── style.css    # スタイル / Styles
-├── script.js    # ロジック / Logic
-└── README.md    # このファイル / This file
-```
-
----
-
-## 🔧 技術スタック / Tech Stack
-
-- **HTML5**
-- **CSS3** (Custom Scrollbar, CSS Variables, Animations)
-- **Vanilla JavaScript** (No frameworks / ライブラリなし)
-- **Google Fonts** — Noto Sans JP / Noto Serif JP
-- **localStorage** — カスタマイズ設定の保存 / Persist customize settings
-
----
