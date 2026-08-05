@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 - Not Found</title>
+  <link rel="icon" href="icon.png" type="image/png" />
+  <style>
+    :root {
+      --color-primary: #00793d;
+      --color-secondary: #4a6354;
+      --color-background: #ffffff;
+      --color-on-background: #1a1c19;
+      --shape-corner-medium: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Noto Serif JP', serif;
+      background-color: var(--color-background);
+      color: var(--color-on-background);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    main {
+      flex-grow: 1;
+      width: 100%;
+      max-width: 900px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      width: min(560px, 100%);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--shape-corner-medium);
+      box-shadow: 0 0 16px rgba(0, 121, 61, 0.18);
+      background-color: var(--color-background);
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 12vw, 5rem);
+      color: var(--color-primary);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtext {
+      color: var(--color-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    a.back {
+      display: inline-block;
+      padding: 0.65rem 1.2rem;
+      background: transparent;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      text-decoration: none;
+      border-radius: var(--shape-corner-medium);
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    a.back:hover {
+      filter: brightness(1.08);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--color-secondary);
+      padding: 1.5rem 0 2.5rem 0;
+    }
+
+    footer a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card" aria-labelledby="error-title">
+      <h1 id="error-title">404</h1>
+      <p>ページが見つかりません</p>
+      <p class="subtext">Sorry, Not Found.</p>
+      <a id="backLink" class="back" href="index.html">トップページへ戻る</a>
+    </section>
+  </main>
+
+  <footer id="footer-copy">&copy;2026 文字数カウンター / Character Counter</footer>
+</body>
+</html>
