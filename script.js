@@ -230,9 +230,9 @@ pasteBtn.addEventListener('click', async () => {
       showToast('クリップボードにテキストがありません');
       return;
     }
-    textInput.value = clipboardText;
+    textInput.value += clipboardText;
     countAll();
-    showToast('クリップボードから貼り付けました');
+    showToast('クリップボードの内容を追加しました');
   } catch (e) {
     showToast('貼り付けに失敗しました');
   }
