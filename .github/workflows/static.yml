@@ -31,8 +31,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: 'main'
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Inject FQDN normalization script
+        run: |
+          # HTMLファイルの<head>直後に挿入
+          find . -maxdepth 1 -name "*.html" -not -name "google*.html" -exec sed -i '/<head>/a \  <script>if(window.location.hostname.endsWith(".")){window.location.replace(window.location.href.replace(window.location.hostname,window.location.hostname.slice(0,-1)));}</script>' {} +
+      - name: Remove sensitive files from deployment artifact
+        run: |
+          # デプロイ対象から削除
+          rm -rf functions README.md README readme.md license LICENSE LICENSE.txt _redirects.md _redirects
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -40,4 +50,5 @@ jobs:
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
+        
