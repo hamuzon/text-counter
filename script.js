@@ -236,6 +236,25 @@ function toggleCustomize() {
   countAll();
 }));
 
+function updateFooterAuthor() {
+  const footerAuthor = document.getElementById('footer-author');
+  const hostname = window.location.hostname;
+  const baseYear = 2026;
+  const currentYear = new Date().getFullYear();
+  const yearText = currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
+
+  if (hostname.includes('hamuzon-jp.f5.si')) {
+    footerAuthor.innerHTML = `&copy;${yearText} <a href="https://hamuzon-jp.f5.si" target="_blank">@hamuzon</a>`;
+  } else if (hostname.includes('hamuzon.github.io')) {
+    footerAuthor.innerHTML = `&copy;${yearText} <a href="https://hamuzon.github.io" target="_blank">@hamuzon</a>`;
+  } else if (hostname.includes('hamusata.f5.si')) {
+    footerAuthor.innerHTML = `&copy;${yearText} <a href="https://hamusata.f5.si" target="_blank">@hamuzata</a>`;
+  } else {
+    footerAuthor.innerHTML = `&copy;${yearText} 文字数カウンター / Character Counter`;
+  }
+}
+
 /* ===== Init ===== */
 loadCustomize();
 countAll();
+updateFooterAuthor();
