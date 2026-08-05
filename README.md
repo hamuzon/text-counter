@@ -65,11 +65,3 @@ A simple yet powerful real-time character counter tool. Just type or paste your 
 - **localStorage** — カスタマイズ設定の保存 / Persist customize settings
 
 ---
-
-## 🚀 デモ / Demo
-
-ファイルをブラウザで開くだけで動作します。サーバー不要。
-
-Works by simply opening `index.html` in your browser. No server required.
-
----
